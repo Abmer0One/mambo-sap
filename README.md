@@ -10,7 +10,13 @@ Posteriormente irei mencionar detalhadamente as suas funcionalidades...
 
 por enquanto ficamos com alguns screenshot dos layouts já feito...
 
+## Page Historial
+
 ![Screenshot_1608639924](https://user-images.githubusercontent.com/42887695/102891271-3151ef80-445e-11eb-95aa-5af83f93bc84.png)
+
+## Page Coordenador
+
+![Screenshot_1608638291](https://user-images.githubusercontent.com/42887695/102891903-52671000-445f-11eb-8bab-23a84690f81f.png)
 
 
 A few resources to get you started if this is your first Flutter project:
