@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-
 class PageInitial extends StatefulWidget {
   @override
   _PageInitialState createState() => _PageInitialState();

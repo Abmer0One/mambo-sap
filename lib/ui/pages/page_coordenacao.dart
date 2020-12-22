@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mambo_sap/model/model_coordenacao.dart';
+import 'package:provider/provider.dart';
 
 class PageCoordenacao extends StatefulWidget {
   @override
@@ -7,107 +9,7 @@ class PageCoordenacao extends StatefulWidget {
 
 class _PageCoordenacaoState extends State<PageCoordenacao> {
 
-  ScrollController _scrollController;
-  var slideSelecionado;
 
-  //************************** INDICE HISTORIA ****************************** */
-  List indiceHistoria = [
-    {
-      'imagemCoordenador': 'assets/image/inicial/descobre.jpg',
-      'cargoCoordenador': 'Coordenador',
-      'nomeCoordenador': 'António Dala',
-      'funcaoCoordenador': 'Gerir o grupo e o resto...',
-      'contactoCoordenador': '923111111',
-      'selecionado': false
-    },
-    {
-      'imagemCoordenador': 'assets/image/inicial/descobre.jpg',
-      'cargoCoordenador': 'Vice-Coordenador',
-      'nomeCoordenador': 'Abiúd Mota',
-      'funcaoCoordenador': 'Gerir o grupo e o resto...',
-      'contactoCoordenador': '923222222',
-      'selecionado': false
-    },
-    {
-      'imagemCoordenador': 'assets/image/inicial/descobre.jpg',
-      'cargoCoordenador': 'Secretária',
-      'nomeCoordenador': 'Valeriana Tito',
-      'funcaoCoordenador': 'Gerir o grupo e o resto...',
-      'contactoCoordenador': '923333333',
-      'selecionado': false
-    },
-    {
-      'imagemCoordenador': 'assets/image/inicial/descobre.jpg',
-      'cargoCoordenador': 'Tesoureira',
-      'nomeCoordenador': 'Siria Tenente',
-      'funcaoCoordenador': 'Gerir o grupo e o resto...',
-      'contactoCoordenador': '923444444',
-      'selecionado': false
-    },
-    {
-      'imagemCoordenador': 'assets/image/inicial/descobre.jpg',
-      'cargoCoordenador': 'Disciplinar',
-      'nomeCoordenador': 'Emelinda Andre',
-      'funcaoCoordenador': 'Gerir o grupo e o resto...',
-      'contactoCoordenador': '92355555',
-      'selecionado': false
-    },
-    {
-      'imagemCoordenador': 'assets/image/inicial/descobre.jpg',
-      'cargoCoordenador': 'Vice-Disciplinar',
-      'nomeCoordenador': 'Lidia Joaquim',
-      'funcaoCoordenador': 'Gerir o grupo e o resto...',
-      'contactoCoordenador': '923666666',
-      'selecionado': false
-    },
-    {
-      'imagemCoordenador': 'assets/image/inicial/descobre.jpg',
-      'cargoCoordenador': 'Coord. JCD',
-      'nomeCoordenador': 'Celso Alexandre',
-      'funcaoCoordenador': 'Gerir o grupo e o resto...',
-      'contactoCoordenador': '923777777',
-      'selecionado': false
-    },
-    {
-      'imagemCoordenador': 'assets/image/inicial/descobre.jpg',
-      'cargoCoordenador': 'Coord. Mirrins',
-      'nomeCoordenador': 'Joelma Malheiro',
-      'funcaoCoordenador': 'Gerir o grupo e o resto...',
-      'contactoCoordenador': '923888888',
-      'selecionado': false
-    },
-
-  ];
-
-  //******************************* INIT STATE ****************************** */
-  @override
-  void initState(){
-    super.initState();
-    _scrollController = ScrollController();
-    _scrollController.addListener(trocarSelector);
-    setState((){
-      slideSelecionado = indiceHistoria[0];
-      slideSelecionado['selecionado'] = true;
-    });
-  }
-
-  //***************************** CHANGE SELECTOR *************************** */
-  trocarSelector(){
-    var maxScrollValue = _scrollController.position.maxScrollExtent;
-    var divisao = (maxScrollValue / indiceHistoria.length) + 20;
-    var valorScroll = _scrollController.offset.round();
-    var slideValue = (valorScroll / divisao).round();
-    var currentSlide = indiceHistoria.indexWhere((slide) => slide['selecionado']);
-
-    print(slideValue);
-
-    setState((){
-      indiceHistoria[currentSlide]['selecionado'] = false;
-      slideSelecionado = indiceHistoria[slideValue];
-      slideSelecionado['selecionado'] = true;
-    });
-
-  }
 
   //****************************** APPBAR *********************************** */
   _appBar(){
@@ -144,229 +46,382 @@ class _PageCoordenacaoState extends State<PageCoordenacao> {
   //****************************** WIDGET ROOT ****************************** */
   @override
   Widget build(BuildContext context) {
+    final coordenador = Provider.of<ModelCoordenador>(context, listen: false);
     return Scaffold(
-      appBar: AppBar(
-        title: _appBar(),
-      ),
-      body: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+     // appBar: AppBar(title: _appBar(),),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          SizedBox(width: 15.0,),
-          _indiceLeftSide(),
-          SizedBox(width: 10.0,),
-          _descriptionRigthSide(),
+
+        /*  Consumer<Coordenadores>(builder: (context, coordenador, child) {
+            return Container(
+              height: MediaQuery.of(context).size.height / 2,
+              child: GridView.builder(
+                scrollDirection: Axis.vertical,
+                padding: const EdgeInsets.all(10.0),
+                itemCount: coordenador.coordenadores.length,
+                itemBuilder: (ctx, i){
+                  return _cardCoordenador(
+                      coordenador.coordenadores[i].imageCoord,
+                      coordenador.coordenadores[i].cargoCoord,
+                      coordenador.coordenadores[i].nameCoord,
+                      "Ver",
+                      "+",
+                  );
+                },
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 1,
+                  childAspectRatio: 7 / 3,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                ),
+              ),
+            );
+          }),*/
+          //::::::::::::::::::::::::::::::: SPACE ::::::::::::::::::::::::::::::
+          SizedBox(height: 50,),
+
+          _descriptionCoord("Coordenação LSAP", 38),
+
+          //::::::::::::::::::::::::::::::: SPACE ::::::::::::::::::::::::::::::
+          SizedBox(height: 30,),
+
+          _descriptionCoord("Com Santo António de Padua, é viva a palavra quando são as obras que falam...", 24),
+
+          //::::::::::::::::::::::::::::::: SPACE ::::::::::::::::::::::::::::::
+          SizedBox(height: 40,),
+
+          _listThemes(coordenador),
         ],
       ),
     );
   }
 
-  //******************************* GET CARDS ******************************* */
-  Widget getCards(slide){
-    return Padding(
-      padding: EdgeInsets.only(
-          top: 15.0,
-          right: 10.0
+  _descriptionCoord(String description, double textSize){
+    return Container(
+      padding: EdgeInsets.only(left: 10),
+      height: MediaQuery.of(context).size.height / 8,
+      width: MediaQuery.of(context).size.width / 1.5,
+      child: Wrap(
+        children: [
+          Text(
+            description,
+            style: TextStyle(
+                fontFamily: 'Quicksand',
+                fontWeight: FontWeight.normal,
+                fontSize: textSize
+            ),
+          ),
+        ],
       ),
-      child: Container(
-        padding: EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          color:  Colors.black12,
-          borderRadius: BorderRadius.all(Radius.circular(10)),
-        ),
-        height: MediaQuery.of(context).size.height / 2.8,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+    );
+  }
 
-            //:::::::::::::::::::::::::::: IMAGE :::::::::::::::::::::::::::
-            Container(
-              height: MediaQuery.of(context).size.height / 6,
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage(
-                      "assets/image/inicial/descobre.jpg",
-                    ),
-                    fit: BoxFit.cover
-                ),
+
+  //******************************* CARD COORD ***************************** */
+  _cardCoordenador(ModelCoordenador coordenador, String imageCoord, String cargoCoordenador, String nomeCoordenador, String maisCoord, String simbolCoord){
+    //final coordenador = Provider.of<ModelCoordenador>(context, listen: false);
+    return Container(
+      height: MediaQuery.of(context).size.height / 2,
+      //width: MediaQuery.of(context).size.width / 8,
+      padding: const EdgeInsets.only(left: 10, right: 10, top: 20),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(160.0),
+        color: Colors.black12,
+      ),
+      child: Column(
+        //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+
+          //::::::::::::::::::::::::::::: IMAGE ::::::::::::::::::::::::::::::::
+          Container(
+            height: 150.0,
+            width: 150.0,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(90.0),
+              image: DecorationImage(
+                  image: AssetImage(imageCoord),
+                  fit: BoxFit.cover
               ),
             ),
+          ),
 
-            //::::::::::::::::::::::::: SPACE ::::::::::::::::::::::::::::::
-            SizedBox(height: 10,),
+          //::::::::::::::::::::::::::::::: SPACE ::::::::::::::::::::::::::::::
+          SizedBox(height: 20,),
 
-            //:::::::::::::::::::: DESCRIPTION CARD ::::::::::::::::::::::::
-            _descriptionCard(slide),
+          //::::::::::::::::::::::::::: NUMBER THEME :::::::::::::::::::::::::::
+          Text(
+            cargoCoordenador,
+            style: TextStyle(
+                fontFamily: 'Quicksand',
+                fontWeight: FontWeight.normal,
+                fontSize: 18
+            ),
+          ),
 
-            //:::::::::::::::::::::::::: BUTTON MORE :::::::::::::::::::::::
-            InkWell(
-              key: UniqueKey(),
-              child: Container(
-                height: MediaQuery.of(context).size.height / 20,
-                width: MediaQuery.of(context).size.width / 8,
-                margin: EdgeInsets.only(
-                  left: MediaQuery.of(context).size.width / 3.5,
-                  top: MediaQuery.of(context).size.height / 998,
-                ),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    color: Colors.red
-                ),
-                child: Center(
-                  child: Icon(
-                      Icons.post_add_sharp,
-                      color: Colors.white
+          //::::::::::::::::::::::::::::::: SPACE ::::::::::::::::::::::::::::::
+          SizedBox(height: 5,),
+
+          //::::::::::::::::::::::::::::: TITLE THEME ::::::::::::::::::::::::::
+          Text(
+            nomeCoordenador,
+            style: TextStyle(
+                fontFamily: 'Quicksand',
+                fontWeight: FontWeight.bold,
+                fontSize: 20
+            ),
+          ),
+
+          //::::::::::::::::::::::::::::::: SPACE ::::::::::::::::::::::::::::::
+          SizedBox(height: 40,),
+
+          //::::::::::::::::::::::::::::::: DESCRIPTION ::::::::::::::::::::::::
+          InkWell(
+            onTap: () => _alertConfirm(context, coordenador),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  maisCoord,
+                  style: TextStyle(
+                      fontFamily: 'Quicksand',
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20
                   ),
                 ),
-              ),
-              onTap: (){
-                setState(() {
 
-                });
-              },
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  //****************************** DESCRIPTION CARD ************************* */
-  _descriptionCard(slide){
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-
-        //::::::::::::::::::::::::::::: TITLE ::::::::::::::::::::::::::::::
-        _formItemCard(Icons.workspaces_filled, slide['cargoCoordenador'], 18),
-
-        //:::::::::::::::::::::::::::::: NAME ::::::::::::::::::::::::::
-        _formItemCard(Icons.person_pin, slide['nomeCoordenador'], 20),
-
-        //:::::::::::::::::::::::::::::: PHONE :::::::::::::::::::::::::
-        _formItemCard(Icons.phone, slide['contactoCoordenador'], 18),
-
-      ],
-    );
-  }
-
-  //**************************** FORM ITEM CARD ***************************** */
-  _formItemCard(IconData iconData, String description, double sizeText){
-    return Row(
-      children: [
-
-        //:::::::::::::::::::::::::::::: ICON :::::::::::::::::::::::::::
-        Icon(
-            iconData,
-            color: Colors.red
-        ),
-
-        //:::::::::::::::::::::::::::::: SPACE :::::::::::::::::::::::::::
-        SizedBox(width: 5,),
-
-        //:::::::::::::::::::::::::::::: DESCRIPTION :::::::::::::::::::::::::::
-        Text(
-          description,
-          style: TextStyle(
-            fontWeight: FontWeight.normal,
-            fontSize: 18,
-            color: Colors.black,
-            fontFamily: 'Quicksand',
-          ),
-        ),
-
-      ],
-    );
-  }
-
-  //******************************* SCROLL SLIDE **************************** */
-  scrollToSlide(inputSlide){
-    var qualSlide = indiceHistoria
-        .indexWhere((slide) => slide['cargoCoordenador'] == inputSlide['cargoCoordenador']);
-    var maxScrollValue = _scrollController.position.maxScrollExtent;
-    var divisao = (maxScrollValue / indiceHistoria.length) + 20;
-    var scrollToValue = qualSlide * divisao;
-    _scrollController.animateTo(
-        scrollToValue,
-        duration: Duration(milliseconds: 1),
-        curve: Curves.easeIn
-    );
-  }
-
-  //******************************* GET TITLES ****************************** */
-  Widget getTitles(slide){
-    return InkWell(
-      onTap: (){
-        scrollToSlide(slide);
-      },
-      child: Padding(
-        padding: EdgeInsets.only(
-          top: 10,
-        ),
-
-        //============================ CONTAINER INDICE ========================
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(5)),
-            border: Border.all(
-                color:  Colors.blue,
-                style: BorderStyle.solid,
-                width: 1.0
-            ),
-          ),
-          child: Row(
-            children: [
-
-              //::::::::::::::::::::::::::: MARK CONTAINER :::::::::::::::::::::
-              Container(
-                height: 25,
-                width: 10,
-                color: slide['selecionado'] ? Colors.yellowAccent : Colors.blue,
-              ),
-
-              //:::::::::::::::::::::::::: SPACE :::::::::::::::::::::::::::::::
-              SizedBox(width: 10,),
-
-              //::::::::::::::::::::::::: DESCRIPTION ::::::::::::::::::::::::::
-              Text(
-                slide['cargoCoordenador'],
-                style: TextStyle(
-                  fontWeight: slide['selecionado'] ? FontWeight.bold : FontWeight.normal,
-                  fontSize: 16,
-                  color: Colors.black,
-                  fontFamily: 'Quicksand',
+                //::::::::::::::::::::::::::::::: DESCRIPTION ::::::::::::::::::::::::
+                Text(
+                  simbolCoord,
+                  style: TextStyle(
+                      fontFamily: 'Quicksand',
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
+
+        ],
+      ),
+    );
+  }
+
+  //******************************* LIST THEMES ***************************** */
+  _listThemes(ModelCoordenador modelCoordenador){
+    return Column(
+      children: [
+        Consumer<ModelCoordenacao>(builder: (context, coordenador, child) {
+          return Container(
+            height: MediaQuery.of(context).size.height / 2,
+            child: GridView.builder(
+              scrollDirection: Axis.horizontal,
+              padding: const EdgeInsets.all(10.0),
+              itemCount: coordenador.coordenadores.length,
+              itemBuilder: (ctx, i){
+                return _cardCoordenador(
+                  modelCoordenador,
+                  coordenador.coordenadores[i].imageCoord,
+                  coordenador.coordenadores[i].cargoCoord,
+                  coordenador.coordenadores[i].nameCoord,
+                  "Ver",
+                  "+",
+                );
+              },
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 1,
+                childAspectRatio: 7 / 3,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+              ),
+            ),
+          );
+        }),
+      ],
+    );
+  }
+
+  //------------------- RADIO BUTTON ALERT DIALOG ------------------------------
+  _imageCoordenador(BuildContext context, String description){
+    return Container(
+      margin: EdgeInsets.all(5),
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height / 2.5,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20.0),
+        image: DecorationImage(
+            image: AssetImage(description),
+            fit: BoxFit.cover
         ),
       ),
     );
+
   }
 
-  //***************************** INDICE LEFT SIDE ************************** */
-  _indiceLeftSide(){
+  //------------------------- INFORMATION RADIO BUTTON --------------------------------------
+  _informationPay(){
     return Container(
-      width: MediaQuery.of(context).size.width / 2.5,
-      child: ListView(
-        children: indiceHistoria.map((element){
-          return getTitles(element);
-        }).toList(),
+      margin: EdgeInsets.all(5),
+      child: Wrap(
+        children: <Widget>[
+          Text(
+              "Faça o seu pagamento direito na nossa conta bancaria. "
+                  "Se possivel informe o ID do seu pedido como identificação"
+                  " do seu dispositivo de transferência. Para pagamentos via"
+                  " DOC, seu pedido não será enviado enquanto o pagamento não"
+                  " for compensado."),
+        ],
       ),
     );
   }
 
-  //************************** DESCRIPTION RIGTH SIDE ************************* */
-  _descriptionRigthSide(){
-    return Container(
-      width: MediaQuery.of(context).size.width / 2,
-      child: ListView(
-        controller: _scrollController,
-        children: indiceHistoria.map((element){
-          return getCards(element);
-        }).toList(),
-      ),
+  //----------------------------- DIALOG COFIRM --------------------------------
+  _alertConfirm(BuildContext context, ModelCoordenador coordenador){
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Dialog(
+            shape: RoundedRectangleBorder(
+              borderRadius:
+              BorderRadius.all(Radius.circular(10.0),
+              ),
+            ),
+            child: Stack(
+              children: <Widget>[
+                CustomScrollView(
+                  slivers: <Widget>[
+                    SliverAppBar(
+                      expandedHeight: 450,
+                      backgroundColor: Colors.white,
+                      flexibleSpace: FlexibleSpaceBar(
+                        collapseMode: CollapseMode.pin,
+                        background: Container(
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: AssetImage("assets/image/inicial/descobre.jpg"),
+                                  fit: BoxFit.cover
+                              )
+                          ),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                    begin: Alignment.bottomRight,
+                                    colors: [
+                                      Colors.white,
+                                      Colors.white.withOpacity(.3)
+                                    ]
+                                )
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.all(20),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: <Widget>[
+                                  Text("Crismado", style:
+                                  TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 40)
+                                    ,),
+                                  SizedBox(height: 20,),
+                                  Row(
+                                    children: <Widget>[
+                                      Text("1 mês", style: TextStyle(color: Colors.black54, fontSize: 16),),
+
+                                      SizedBox(width: 50,),
+                                      Text("Crismado", style:
+                                      TextStyle(color: Colors.black54, fontSize: 16)
+                                        ,)
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SliverList(
+                      delegate: SliverChildListDelegate([
+                        Padding(
+                          padding: EdgeInsets.all(20),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text("Irmão Descobre, esta no grupo a 1 mês e bwede dia, foi na disciplina no primeiro dia, ainda não namorou com ninguem, boa menina? tem que perguntar nas 5 irmãos que ele ... o resto já sabem.",
+                                style: TextStyle(color: Colors.black, height: 1.4),),
+                              SizedBox(height: 40,),
+                              Text("Função", style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),),
+
+                              SizedBox(height: 10,),
+
+                              Text("1 de Abril, em Kasporn, Nowhere.", style: TextStyle(color: Colors.black),),
+
+                              SizedBox(height: 20,),
+
+                              Text("Nacionalidade", style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),),
+
+                              SizedBox(height: 10,),
+
+                              Text("bhrastshy", style: TextStyle(color: Colors.black),),
+
+                              SizedBox(height: 20,),
+
+                              Text("Meus Momentos", style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),),
+
+                              SizedBox(height: 20,),
+
+                              //SPACE...
+                              SizedBox(height: 120,)
+                            ],
+                          ),
+                        )
+                      ]),
+                    )
+                  ],
+                ),
+
+
+                Positioned.fill(
+                  bottom: 50,
+                  child: InkWell(
+                    onTap: () => Navigator.pop(context),
+                    child: Container(
+                      child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Container(
+                          margin: EdgeInsets.symmetric(horizontal: 30),
+                          height: 50,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(50),
+                              color: Colors.blueAccent
+                          ),
+                          child: Align(
+                              child: Text(
+                                "Voltar",
+                                style: TextStyle(
+                                    color: Colors.white
+                                ),
+                              )
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          );
+        }
     );
   }
+
+
+
+
+
+
+
 
 }
