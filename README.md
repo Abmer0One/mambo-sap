@@ -18,6 +18,11 @@ por enquanto ficamos com alguns screenshot dos layouts já feito...
 
 ![Screenshot_1608638291](https://user-images.githubusercontent.com/42887695/102891903-52671000-445f-11eb-8bab-23a84690f81f.png)
 
+## Dialog Details Coord
+
+
+![Screenshot_1608638718](https://user-images.githubusercontent.com/42887695/102892188-ca353a80-445f-11eb-81e4-0f2c21b7f847.png)
+
 
 A few resources to get you started if this is your first Flutter project:
 
