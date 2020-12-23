@@ -140,9 +140,10 @@ class _PageCoordenacaoState extends State<PageCoordenacao> {
             width: 150.0,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(90.0),
+              //color: Colors.black12,
               image: DecorationImage(
                   image: AssetImage(imageCoord),
-                  fit: BoxFit.cover
+                  fit: BoxFit.fill
               ),
             ),
           ),
@@ -301,7 +302,7 @@ class _PageCoordenacaoState extends State<PageCoordenacao> {
                         background: Container(
                           decoration: BoxDecoration(
                               image: DecorationImage(
-                                  image: AssetImage("assets/image/inicial/descobre.jpg"),
+                                  image: AssetImage("assets/image/inicial/padroeiro.png"),
                                   fit: BoxFit.cover
                               )
                           ),

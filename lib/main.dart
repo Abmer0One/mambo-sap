@@ -5,6 +5,7 @@ import 'model/model_coordenacao.dart';
 import 'ui/pages/page_coordenacao.dart';
 import 'ui/pages/page_historia.dart';
 import 'ui/pages/page_initial.dart';
+import 'ui/pages/page_missal.dart';
 import 'ui/pages/teste.dart';
 
 
@@ -34,9 +35,10 @@ class MyApp extends StatelessWidget {
         ),
         home:
         //PageInitial(),
-        PageHistoria(),
-        //PageCoordenacao(),
+        //PageHistoria(),
+        PageCoordenacao(),
         //SignIn(),
+        //PageMissal(),
       )
     );
   }

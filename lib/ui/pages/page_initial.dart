@@ -55,9 +55,9 @@ class _PageInitialState extends State<PageInitial> {
             decoration: BoxDecoration(
               image: DecorationImage(
                   image: AssetImage(
-                    "assets/image/inicial/descobre.jpg",
+                    "assets/image/inicial/padroeiro.png",
                   ),
-                  fit: BoxFit.cover
+                  fit: BoxFit.fill
               ),
             ),
           ),

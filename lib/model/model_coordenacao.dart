@@ -4,7 +4,7 @@ class ModelCoordenacao with ChangeNotifier {
   final List<ModelCoordenador> coordenadores = [
     ModelCoordenador(
       position: 7,
-      imageCoord: "assets/image/inicial/descobre.jpg",
+      imageCoord: "assets/image/inicial/padroeiro.png",
       nameCoord: "António Dala",
       cargoCoord: "Coordenador",
       funcaoCoord: "Gerir o grupo e o resto...",
@@ -12,7 +12,7 @@ class ModelCoordenacao with ChangeNotifier {
     ),
     ModelCoordenador(
       position: 7,
-      imageCoord: "assets/image/inicial/descobre.jpg",
+      imageCoord: "assets/image/inicial/padroeiro.png",
       nameCoord: "Abiúd Mota",
       cargoCoord: "Vice-Coordenador",
       funcaoCoord: "Gerir o grupo e o resto...",
@@ -20,7 +20,7 @@ class ModelCoordenacao with ChangeNotifier {
     ),
     ModelCoordenador(
       position: 7,
-      imageCoord: "assets/image/inicial/descobre.jpg",
+      imageCoord: "assets/image/inicial/padroeiro.png",
       nameCoord: "Valeriana Tito",
       cargoCoord: "Coordenadora da Secretária",
       funcaoCoord: "Gerir o grupo e o resto...",
@@ -28,7 +28,7 @@ class ModelCoordenacao with ChangeNotifier {
     ),
     ModelCoordenador(
       position: 7,
-      imageCoord: "assets/image/inicial/descobre.jpg",
+      imageCoord: "assets/image/inicial/padroeiro.png",
       nameCoord: "Siria Tenente",
       cargoCoord: "Coordenador da Tesouraria",
       funcaoCoord: "Gerir o grupo e o resto...",
@@ -36,7 +36,7 @@ class ModelCoordenacao with ChangeNotifier {
     ),
     ModelCoordenador(
       position: 7,
-      imageCoord: "assets/image/inicial/descobre.jpg",
+      imageCoord: "assets/image/inicial/padroeiro.png",
       nameCoord: "Emelinda Andre",
       cargoCoord: "Coordenadora Disciplinar",
       funcaoCoord: "Gerir o grupo e o resto...",
@@ -44,7 +44,7 @@ class ModelCoordenacao with ChangeNotifier {
     ),
     ModelCoordenador(
       position: 7,
-      imageCoord: "assets/image/inicial/descobre.jpg",
+      imageCoord: "assets/image/inicial/padroeiro.png",
       nameCoord: "Lidia Joaquim",
       cargoCoord: "Vice-Coordenadora Disciplinar",
       funcaoCoord: "Gerir o grupo e o resto...",
@@ -52,7 +52,7 @@ class ModelCoordenacao with ChangeNotifier {
     ),
     ModelCoordenador(
       position: 7,
-      imageCoord: "assets/image/inicial/descobre.jpg",
+      imageCoord: "assets/image/inicial/padroeiro.png",
       nameCoord: "Joelma Malheiro",
       cargoCoord: "Coordenadora dos Mirins",
       funcaoCoord: "Gerir o grupo e o resto...",
@@ -60,7 +60,7 @@ class ModelCoordenacao with ChangeNotifier {
     ),
     ModelCoordenador(
       position: 7,
-      imageCoord: "assets/image/inicial/descobre.jpg",
+      imageCoord: "assets/image/inicial/padroeiro.png",
       nameCoord: "Celso Alexandre",
       cargoCoord: "Coordenador de J.C.D",
       funcaoCoord: "Gerir o grupo e o resto...",
