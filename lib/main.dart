@@ -36,9 +36,11 @@ class MyApp extends StatelessWidget {
         home:
         //PageInitial(),
         //PageHistoria(),
-        PageCoordenacao(),
+        //PageCoordenacao(),
         //SignIn(),
-        //PageMissal(),
+        PageMissal(),
+        //Gravar(),
+        //TimerApp(),
       )
     );
   }

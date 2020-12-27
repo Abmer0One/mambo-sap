@@ -1,142 +1,111 @@
+import 'package:flutter/material.dart';
 import 'dart:async';
 
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
-import 'package:video_player/video_player.dart';
 
-class SignIn extends StatefulWidget {
-  SignIn({Key key}) : super(key: key);
 
+class TimerApp extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => _SignInState();
+  _TimerAppState createState() => _TimerAppState();
 }
 
-class _SignInState extends State<SignIn> {
-  VideoPlayerController _controller;
-  bool _visible = false;
+class _TimerAppState extends State<TimerApp> {
+  static const duration = const Duration(seconds: 1);
 
-  @override
-  void initState() {
-    super.initState();
+  int secondsPassed = 0;
+  bool isActive = false;
 
-    _controller = VideoPlayerController.asset("assets/video/waves.mp4");
-    _controller.initialize().then((_) {
-      _controller.setLooping(true);
-      Timer(Duration(milliseconds: 100), () {
-        setState(() {
-          _controller.play();
-          _visible = true;
-        });
+  Timer timer;
+
+  void handleTick() {
+    if (isActive) {
+      setState(() {
+        secondsPassed = secondsPassed + 1;
       });
-    });
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    if (_controller != null) {
-      _controller.dispose();
-      _controller = null;
     }
-  }
-
-  _getVideoBackground() {
-    return AnimatedOpacity(
-      opacity: _visible ? 1.0 : 0.0,
-      duration: Duration(milliseconds: 1000),
-      child: VideoPlayer(_controller),
-    );
-  }
-
-  _getBackgroundColor() {
-    return Container(
-      color: Colors.blue.withAlpha(120),
-    );
-  }
-
-  _getLoginButtons() {
-    return <Widget>[
-      Container(
-        margin: const EdgeInsets.only(left: 20, right: 20),
-        width: double.infinity,
-        child: FlatButton(
-          color: Colors.white,
-          padding: const EdgeInsets.only(top: 15.0, bottom: 15.0),
-          child: const Text('Sign Up with Email'),
-          onPressed: () async {},
-        ),
-      ),
-      Container(
-        margin: const EdgeInsets.only(top: 10, left: 20, right: 20),
-        width: double.infinity,
-        child: FlatButton(
-          color: Colors.blueAccent,
-          padding: const EdgeInsets.only(top: 15.0, bottom: 15.0),
-          child: const Text(
-            'Log back in',
-            style: TextStyle(color: Colors.white),
-          ),
-          onPressed: () async {},
-        ),
-      ),
-      Container(
-        margin: const EdgeInsets.only(bottom: 16, top: 20, left: 20, right: 20),
-        width: double.infinity,
-        child: FlatButton(
-          child: const Text(
-            'Later...',
-            style: TextStyle(color: Colors.white),
-          ),
-          onPressed: () {},
-        ),
-      ),
-    ];
-  }
-
-  _getContent() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: <Widget>[
-        SizedBox(
-          height: 50.0,
-        ),
-        Image(
-          image: AssetImage("assets/image/inicial/descobre.jpg"),
-          width: 150.0,
-        ),
-        Text(
-          "WaveSpy",
-          style: TextStyle(color: Colors.white, fontSize: 40),
-        ),
-        Container(
-          margin: const EdgeInsets.only(left: 30.0, right: 30.0, top: 40.0),
-          alignment: Alignment.center,
-          child: Text(
-            "View and share videos of current ocean conditions.",
-            textAlign: TextAlign.center,
-            style: TextStyle(color: Colors.white, fontSize: 20),
-          ),
-        ),
-        Spacer(),
-        ..._getLoginButtons()
-      ],
-    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Stack(
-          children: <Widget>[
-            _getVideoBackground(),
-            _getBackgroundColor(),
-            _getContent(),
-          ],
-        ),
+    if (timer == null) {
+      timer = Timer.periodic(duration, (Timer t) {
+        handleTick();
+      });
+    }
+    int seconds = secondsPassed % 60;
+    int minutes = secondsPassed ~/ 60;
+    int hours = secondsPassed ~/ (60 * 60);
+
+    return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: Scaffold(
+          backgroundColor: Colors.teal[50],
+          body: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    _labelTextTimer(
+                        'HRS', hours.toString().padLeft(2, '0')),
+                    _labelTextTimer(
+                        'MIN',
+                        minutes.toString().padLeft(2, '0')),
+                    _labelTextTimer(
+                        'SEC',
+                        seconds.toString().padLeft(2, '0')),
+                  ],
+                ),
+                SizedBox(height: 20),
+                Container(
+                  width: 100,
+                  height: 100,
+                  margin: EdgeInsets.only(top: 10),
+                  child: RaisedButton(
+                    color: Colors.pink[200],
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50)),
+                    child: Text(isActive ? 'Stop' : 'Play'),
+                    onPressed: () {
+                      setState(() {
+                        isActive = !isActive;
+                      });
+                    },
+                  ),
+                )
+              ],
+            ),
+          ),
+        ));
+  }
+
+  //*************************** CARD TEXT TIMER ********************************
+  _labelTextTimer(String description, String value){
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 5),
+      padding: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: Colors.teal,
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Text(
+            '$value',
+            style: TextStyle(
+                color: Colors.white, fontSize: 55, fontWeight: FontWeight.bold),
+          ),
+          Text(
+            '$description',
+            style: TextStyle(
+              color: Colors.white70,
+            ),
+          ),
+        ],
       ),
     );
   }
 }
+
+

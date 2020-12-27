@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mambo_sap/ui/share/share_navigation_item.dart';
+import 'package:mambo_sap/ui/widget_complement/menu_partilha.dart';
+import 'package:mambo_sap/ui/widget_complement/missal_tempos_liturgicos.dart';
+import 'package:mambo_sap/ui/widget_complement/partilha_gravar_audio.dart';
+import 'package:mambo_sap/ui/widget_complement/partilha_gravar_texto.dart';
 
 class PageMissal extends StatefulWidget {
 
@@ -14,7 +18,9 @@ class _PageMissalState extends State<PageMissal> with TickerProviderStateMixin{
   int selectedIndex = 0;
   Color backgroundColorNav = Colors.black;
 
-  //--------------------- VARIABLE TAB OF PAGE MISSAL ------------------------/
+
+
+  //--------------------- VARIABLE TAB OF PAGE MISSAL -------------------------/
   TabController _tabController;
 
 
@@ -46,9 +52,10 @@ class _PageMissalState extends State<PageMissal> with TickerProviderStateMixin{
 
 
           //------------------- PAGE PARTILHA DE PALAVRA -----------------------
-
+          MenuPartilha(),
 
           //------------------- PAGE TEMPOS LITURGICOS -------------------------
+          MissalTemposLiturgicos()
 
         ],
         index: selectedIndex,
@@ -58,6 +65,7 @@ class _PageMissalState extends State<PageMissal> with TickerProviderStateMixin{
       bottomNavigationBar: _bottomNavCustom(),
     );
   }
+
 
   //******************************* ITEM BOTTOM BAR ****************************
   Widget _buildItem(ShareNavigationItem item, bool isSelected) {
@@ -142,6 +150,8 @@ class _PageMissalState extends State<PageMissal> with TickerProviderStateMixin{
       ),
     );
   }
+
+
 
 }
 
