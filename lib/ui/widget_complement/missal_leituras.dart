@@ -372,14 +372,12 @@ class _PageMissalLeiturasState extends State<PageMissalLeituras> with TickerProv
               children: [
     
                 Text(
-                    event.toString()
+                  event.toString()
                 ),
     
                 InkWell(
                   onTap: () {
-
                       _alertConfirm(context);
-
                   },//print('$event tapped!'),
                   child: Icon(
                     Icons.menu_book,

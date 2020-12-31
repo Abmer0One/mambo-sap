@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mambo_sap/model/model_oracao.dart';
 import 'package:provider/provider.dart';
 
 import 'model/model_coordenacao.dart';
@@ -29,6 +30,12 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider.value(
           value: ModelCoordenador(),
         ),
+        ChangeNotifierProvider.value(
+          value: ModelOracao(),
+        ),
+        ChangeNotifierProvider.value(
+          value: ModelOrar(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -45,8 +52,8 @@ class MyApp extends StatelessWidget {
         //Gravar(),
         //TimerApp(),
         //PageActividades(),
-        //PageBiblia(),
-        PageOracao()
+        PageBiblia(),
+        //PageOracao()
       )
     );
   }
