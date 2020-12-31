@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mambo_sap/ui/share/share_navigation_item.dart';
 import 'package:mambo_sap/ui/widget_complement/menu_partilha.dart';
+import 'package:mambo_sap/ui/widget_complement/missal_leituras.dart';
 import 'package:mambo_sap/ui/widget_complement/missal_tempos_liturgicos.dart';
 import 'package:mambo_sap/ui/widget_complement/partilha_gravar_audio.dart';
 import 'package:mambo_sap/ui/widget_complement/partilha_gravar_texto.dart';
@@ -49,7 +50,7 @@ class _PageMissalState extends State<PageMissal> with TickerProviderStateMixin{
         children: <Widget>[
 
           //----------------------- PAGE LEITURAS ------------------------------
-
+          PageMissalLeituras(),
 
           //------------------- PAGE PARTILHA DE PALAVRA -----------------------
           MenuPartilha(),

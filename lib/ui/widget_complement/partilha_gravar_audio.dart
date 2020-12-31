@@ -36,6 +36,10 @@ class _PartilhaGravarAudioState extends State<PartilhaGravarAudio> {
       padding: EdgeInsets.only(top: 30),
       decoration: BoxDecoration(
         color: Colors.black26,
+        image: DecorationImage(
+            image: AssetImage("assets/image/menu/partilha_da_palavra.jpg"),
+            fit: BoxFit.fill
+        ),
       ),
       child: _gravarAudio(),
     );
@@ -84,7 +88,7 @@ class _PartilhaGravarAudioState extends State<PartilhaGravarAudio> {
           margin: EdgeInsets.only(top: 30),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
-            color: Colors.white70,
+            color: Colors.white,
           ),
           child: Center(
             child: InkWell(
@@ -118,7 +122,7 @@ class _PartilhaGravarAudioState extends State<PartilhaGravarAudio> {
       padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
-        color: Colors.white70,
+        color: Colors.white,
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,

@@ -11,7 +11,14 @@ class _PartilhaGravarTextoState extends State<PartilhaGravarTexto> {
     return Container(
       height: MediaQuery.of(context).size.height / 1.8,
       width: MediaQuery.of(context).size.width,
-      color: Colors.black26,
+      //color: Colors.black26,
+      decoration: BoxDecoration(
+        color: Colors.black26,
+        image: DecorationImage(
+            image: AssetImage("assets/image/menu/partilha_da_palavra.jpg"),
+            fit: BoxFit.fill
+        ),
+      ),
       child: Column(
 
         children: [

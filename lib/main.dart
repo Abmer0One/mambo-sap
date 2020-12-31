@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'model/model_coordenacao.dart';
+import 'ui/pages/page_actividades.dart';
+import 'ui/pages/page_biblia.dart';
 import 'ui/pages/page_coordenacao.dart';
 import 'ui/pages/page_historia.dart';
 import 'ui/pages/page_initial.dart';
 import 'ui/pages/page_missal.dart';
+import 'ui/pages/page_oracoes.dart';
 import 'ui/pages/teste.dart';
 
 
@@ -38,9 +41,12 @@ class MyApp extends StatelessWidget {
         //PageHistoria(),
         //PageCoordenacao(),
         //SignIn(),
-        PageMissal(),
+        //PageMissal(),
         //Gravar(),
         //TimerApp(),
+        //PageActividades(),
+        //PageBiblia(),
+        PageOracao()
       )
     );
   }

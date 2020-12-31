@@ -27,7 +27,7 @@ class _MenuPartilhaState extends State<MenuPartilha> {
       children: [
 
         //::::::::::::::::::::::: IMAGE TOP BACKGROUND :::::::::::::::::::::::::
-       /* recordAudio ? PartilhaGravarAudio() : Container(
+        /*recordAudio ? PartilhaGravarAudio() : Container(
           height: MediaQuery.of(context).size.height / 1.5,
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
@@ -45,7 +45,7 @@ class _MenuPartilhaState extends State<MenuPartilha> {
             borderRadius: BorderRadius.circular(0),
             color: Colors.black12,
             image: DecorationImage(
-                image: AssetImage("assets/image/inicial/descobre.jpg"),
+                image: AssetImage("assets/image/menu/partilha_da_palavra.jpg"),
                 fit: BoxFit.fill
             ),
           ),
