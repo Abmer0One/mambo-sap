@@ -39,7 +39,17 @@ por enquanto ficamos com alguns screenshot dos layouts já feito...
 
 <img src="https://user-images.githubusercontent.com/42887695/103242075-5dd1a400-4955-11eb-9869-fede584e263a.png" width="400" height="800" />
 
+## Page Actividades
 
+<img src="https://user-images.githubusercontent.com/42887695/103410995-20942e80-4b6e-11eb-8e61-ba904e6ad401.png" width="400" height="800" />
+
+## Page Biblia
+
+<img src="https://user-images.githubusercontent.com/42887695/103411088-7ec11180-4b6e-11eb-83c2-e474bb0dda0d.png" width="400" height="800" />
+
+##Page Oração
+
+<img src="https://user-images.githubusercontent.com/42887695/103411116-b0d27380-4b6e-11eb-8f23-4e8abb33e4f7.png" width="400" height="800" />
 
 
 A few resources to get you started if this is your first Flutter project:
