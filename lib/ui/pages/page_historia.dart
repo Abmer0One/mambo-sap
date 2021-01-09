@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mambo_sap/model/model_historia.dart';
+import 'package:provider/provider.dart';
 
 class PageHistoria extends StatefulWidget {
   @override
@@ -7,59 +9,17 @@ class PageHistoria extends StatefulWidget {
 
 class _PageHistoriaState extends State<PageHistoria> {
 
-  ScrollController _scrollController;
-  var slideSelecionado;
+  bool selectedCard = false;
+  Color colorHistorySelected = Colors.white;
+  String descriptionBegin = "Conheça a Historia do Grupo";
+  String historyBeginTitle = "Com Santo António de Padua, é viva a palavra quando são as obras que falam...";
 
-  //************************** INDICE HISTORIA ****************************** */
-  List indiceHistoria = [
-    {'nomeCapitulo': '1992', 'descriptionHistory': 'Nesta carta de São João retrata de duas testemunhas que simbolizam todos os que receberam a missão profética e, por isso, estão disponíveis para anunciar a Boa Nova. Essas testemunhas têm a proteção de Deus e d´Ele recebem poderes extraordinários em ordem à evangelização que o Espírito Santo torna fecunda. São instrumentos nas mãos de Deus, ao serviço da humanidade. Por isso são dignos de veneração e hão-de participar na glória de Deus. A única condição para isso é que sigam o mesmo caminho que o mestre, Jesus, percorreu.','selecionado': false},
-    {'nomeCapitulo': '1993', 'descriptionHistory': 'Nesta carta de São João retrata de duas testemunhas que simbolizam todos os que receberam a missão profética e, por isso, estão disponíveis para anunciar a Boa Nova. Essas testemunhas têm a proteção de Deus e d´Ele recebem poderes extraordinários em ordem à evangelização que o Espírito Santo torna fecunda. São instrumentos nas mãos de Deus, ao serviço da humanidade. Por isso são dignos de veneração e hão-de participar na glória de Deus. A única condição para isso é que sigam o mesmo caminho que o mestre, Jesus, percorreu.', 'selecionado': false},
-    {'nomeCapitulo': '1994', 'descriptionHistory': 'Nesta carta de São João retrata de duas testemunhas que simbolizam todos os que receberam a missão profética e, por isso, estão disponíveis para anunciar a Boa Nova. Essas testemunhas têm a proteção de Deus e d´Ele recebem poderes extraordinários em ordem à evangelização que o Espírito Santo torna fecunda. São instrumentos nas mãos de Deus, ao serviço da humanidade. Por isso são dignos de veneração e hão-de participar na glória de Deus. A única condição para isso é que sigam o mesmo caminho que o mestre, Jesus, percorreu.', 'selecionado': false},
-    {'nomeCapitulo': '1995', 'descriptionHistory': 'Nesta carta de São João retrata de duas testemunhas que simbolizam todos os que receberam a missão profética e, por isso, estão disponíveis para anunciar a Boa Nova. Essas testemunhas têm a proteção de Deus e d´Ele recebem poderes extraordinários em ordem à evangelização que o Espírito Santo torna fecunda. São instrumentos nas mãos de Deus, ao serviço da humanidade. Por isso são dignos de veneração e hão-de participar na glória de Deus. A única condição para isso é que sigam o mesmo caminho que o mestre, Jesus, percorreu.', 'selecionado': false},
-    {'nomeCapitulo': '1996', 'descriptionHistory': 'Nesta carta de São João retrata de duas testemunhas que simbolizam todos os que receberam a missão profética e, por isso, estão disponíveis para anunciar a Boa Nova. Essas testemunhas têm a proteção de Deus e d´Ele recebem poderes extraordinários em ordem à evangelização que o Espírito Santo torna fecunda. São instrumentos nas mãos de Deus, ao serviço da humanidade. Por isso são dignos de veneração e hão-de participar na glória de Deus. A única condição para isso é que sigam o mesmo caminho que o mestre, Jesus, percorreu.', 'selecionado': false},
-    {'nomeCapitulo': '1997', 'descriptionHistory': 'Nesta carta de São João retrata de duas testemunhas que simbolizam todos os que receberam a missão profética e, por isso, estão disponíveis para anunciar a Boa Nova. Essas testemunhas têm a proteção de Deus e d´Ele recebem poderes extraordinários em ordem à evangelização que o Espírito Santo torna fecunda. São instrumentos nas mãos de Deus, ao serviço da humanidade. Por isso são dignos de veneração e hão-de participar na glória de Deus. A única condição para isso é que sigam o mesmo caminho que o mestre, Jesus, percorreu.', 'selecionado': false},
-    {'nomeCapitulo': '1998', 'descriptionHistory': 'Nesta carta de São João retrata de duas testemunhas que simbolizam todos os que receberam a missão profética e, por isso, estão disponíveis para anunciar a Boa Nova. Essas testemunhas têm a proteção de Deus e d´Ele recebem poderes extraordinários em ordem à evangelização que o Espírito Santo torna fecunda. São instrumentos nas mãos de Deus, ao serviço da humanidade. Por isso são dignos de veneração e hão-de participar na glória de Deus. A única condição para isso é que sigam o mesmo caminho que o mestre, Jesus, percorreu.', 'selecionado': false},
-    {'nomeCapitulo': '1999', 'descriptionHistory': 'Nesta carta de São João retrata de duas testemunhas que simbolizam todos os que receberam a missão profética e, por isso, estão disponíveis para anunciar a Boa Nova. Essas testemunhas têm a proteção de Deus e d´Ele recebem poderes extraordinários em ordem à evangelização que o Espírito Santo torna fecunda. São instrumentos nas mãos de Deus, ao serviço da humanidade. Por isso são dignos de veneração e hão-de participar na glória de Deus. A única condição para isso é que sigam o mesmo caminho que o mestre, Jesus, percorreu.', 'selecionado': false},
-    {'nomeCapitulo': '2000', 'descriptionHistory': 'Nesta carta de São João retrata de duas testemunhas que simbolizam todos os que receberam a missão profética e, por isso, estão disponíveis para anunciar a Boa Nova. Essas testemunhas têm a proteção de Deus e d´Ele recebem poderes extraordinários em ordem à evangelização que o Espírito Santo torna fecunda. São instrumentos nas mãos de Deus, ao serviço da humanidade. Por isso são dignos de veneração e hão-de participar na glória de Deus. A única condição para isso é que sigam o mesmo caminho que o mestre, Jesus, percorreu.', 'selecionado': false},
-    {'nomeCapitulo': '2001', 'descriptionHistory': 'Nesta carta de São João retrata de duas testemunhas que simbolizam todos os que receberam a missão profética e, por isso, estão disponíveis para anunciar a Boa Nova. Essas testemunhas têm a proteção de Deus e d´Ele recebem poderes extraordinários em ordem à evangelização que o Espírito Santo torna fecunda. São instrumentos nas mãos de Deus, ao serviço da humanidade. Por isso são dignos de veneração e hão-de participar na glória de Deus. A única condição para isso é que sigam o mesmo caminho que o mestre, Jesus, percorreu.', 'selecionado': false},
-    {'nomeCapitulo': '2002', 'descriptionHistory': 'Nesta carta de São João retrata de duas testemunhas que simbolizam todos os que receberam a missão profética e, por isso, estão disponíveis para anunciar a Boa Nova. Essas testemunhas têm a proteção de Deus e d´Ele recebem poderes extraordinários em ordem à evangelização que o Espírito Santo torna fecunda. São instrumentos nas mãos de Deus, ao serviço da humanidade. Por isso são dignos de veneração e hão-de participar na glória de Deus. A única condição para isso é que sigam o mesmo caminho que o mestre, Jesus, percorreu.', 'selecionado': false},
-    {'nomeCapitulo': '2005', 'descriptionHistory': 'Nesta carta de São João retrata de duas testemunhas que simbolizam todos os que receberam a missão profética e, por isso, estão disponíveis para anunciar a Boa Nova. Essas testemunhas têm a proteção de Deus e d´Ele recebem poderes extraordinários em ordem à evangelização que o Espírito Santo torna fecunda. São instrumentos nas mãos de Deus, ao serviço da humanidade. Por isso são dignos de veneração e hão-de participar na glória de Deus. A única condição para isso é que sigam o mesmo caminho que o mestre, Jesus, percorreu.', 'selecionado': false},
-    {'nomeCapitulo': '2016', 'descriptionHistory': 'Nesta carta de São João retrata de duas testemunhas que simbolizam todos os que receberam a missão profética e, por isso, estão disponíveis para anunciar a Boa Nova. Essas testemunhas têm a proteção de Deus e d´Ele recebem poderes extraordinários em ordem à evangelização que o Espírito Santo torna fecunda. São instrumentos nas mãos de Deus, ao serviço da humanidade. Por isso são dignos de veneração e hão-de participar na glória de Deus. A única condição para isso é que sigam o mesmo caminho que o mestre, Jesus, percorreu.', 'selecionado': false},
-    {'nomeCapitulo': '2017', 'descriptionHistory': 'Nesta carta de São João retrata de duas testemunhas que simbolizam todos os que receberam a missão profética e, por isso, estão disponíveis para anunciar a Boa Nova. Essas testemunhas têm a proteção de Deus e d´Ele recebem poderes extraordinários em ordem à evangelização que o Espírito Santo torna fecunda. São instrumentos nas mãos de Deus, ao serviço da humanidade. Por isso são dignos de veneração e hão-de participar na glória de Deus. A única condição para isso é que sigam o mesmo caminho que o mestre, Jesus, percorreu.', 'selecionado': false},
-    {'nomeCapitulo': '2018', 'descriptionHistory': 'Nesta carta de São João retrata de duas testemunhas que simbolizam todos os que receberam a missão profética e, por isso, estão disponíveis para anunciar a Boa Nova. Essas testemunhas têm a proteção de Deus e d´Ele recebem poderes extraordinários em ordem à evangelização que o Espírito Santo torna fecunda. São instrumentos nas mãos de Deus, ao serviço da humanidade. Por isso são dignos de veneração e hão-de participar na glória de Deus. A única condição para isso é que sigam o mesmo caminho que o mestre, Jesus, percorreu.', 'selecionado': false},
-    {'nomeCapitulo': '2019', 'descriptionHistory': 'Nesta carta de São João retrata de duas testemunhas que simbolizam todos os que receberam a missão profética e, por isso, estão disponíveis para anunciar a Boa Nova. Essas testemunhas têm a proteção de Deus e d´Ele recebem poderes extraordinários em ordem à evangelização que o Espírito Santo torna fecunda. São instrumentos nas mãos de Deus, ao serviço da humanidade. Por isso são dignos de veneração e hão-de participar na glória de Deus. A única condição para isso é que sigam o mesmo caminho que o mestre, Jesus, percorreu.', 'selecionado': false},
-    {'nomeCapitulo': '2020', 'descriptionHistory': 'Nesta carta de São João retrata de duas testemunhas que simbolizam todos os que receberam a missão profética e, por isso, estão disponíveis para anunciar a Boa Nova. Essas testemunhas têm a proteção de Deus e d´Ele recebem poderes extraordinários em ordem à evangelização que o Espírito Santo torna fecunda. São instrumentos nas mãos de Deus, ao serviço da humanidade. Por isso são dignos de veneração e hão-de participar na glória de Deus. A única condição para isso é que sigam o mesmo caminho que o mestre, Jesus, percorreu.', 'selecionado': false},
-    {'nomeCapitulo': '2021', 'descriptionHistory': 'Aqui começa uma nova jornada.', 'selecionado': false},
-  ];
-
-  //******************************* INIT STATE ****************************** */
-  @override
-  void initState(){
-    super.initState();
-    _scrollController = ScrollController();
-    _scrollController.addListener(trocarSelector);
+  //******************************* SET INFORMATION ************************* */
+  _setPrayer(String prayer, String title){
     setState((){
-      slideSelecionado = indiceHistoria[0];
-      slideSelecionado['selecionado'] = true;
+      descriptionBegin = prayer;
+      historyBeginTitle = title;
     });
-  }
-
-  //***************************** CHANGE SELECTOR *************************** */
-  trocarSelector(){
-    var maxScrollValue = _scrollController.position.maxScrollExtent;
-    var divisao = (maxScrollValue / indiceHistoria.length) + 20;
-    var valorScroll = _scrollController.offset.round();
-    var slideValue = (valorScroll / divisao).round();
-    var currentSlide = indiceHistoria.indexWhere((slide) => slide['selecionado']);
-
-    print(slideValue);
-
-    setState((){
-      indiceHistoria[currentSlide]['selecionado'] = false;
-      slideSelecionado = indiceHistoria[slideValue];
-      slideSelecionado['selecionado'] = true;
-    });
-
   }
 
   //****************************** APPBAR *********************************** */
@@ -94,63 +54,74 @@ class _PageHistoriaState extends State<PageHistoria> {
     );
   }
 
+
   //****************************** WIDGET ROOT ****************************** */
   @override
   Widget build(BuildContext context) {
+    final historiaModel = Provider.of<ModelHistoria>(context, listen: false);
     return Scaffold(
-      appBar: AppBar(
-        title: _appBar(),
-      ),
-      body: Row(
+     // appBar: AppBar(title: _appBar(),),
+      body: Column(
         children: <Widget>[
           SizedBox(width: 15.0,),
-          _indiceLeftSide(),
+         _information(),
           SizedBox(width: 10.0,),
-          _descriptionRigthSide(),
+          _shortInformation(),
+          SizedBox(width: 10.0,),
+          _listOfHistory(historiaModel),
         ],
       ),
     );
   }
 
-  //******************************* GET CARDS ******************************* */
-  Widget getCards(slide){
-    return Padding(
-      padding: EdgeInsets.only(
-          top: 15.0,
-          right: 10.0
-      ),
-      child: Container(
-        padding: EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          color:  Colors.black12,
-          borderRadius: BorderRadius.all(Radius.circular(10)),
-        ),
-        height: 500.0,
-        width: 300.0,
+  //********************* TEXTO DESCRIPTION HISTORY ****************************
+  _textoVersiculos(){
+    return SliverList(
+      delegate: SliverChildListDelegate([
+        Padding(
+          padding: EdgeInsets.all(20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+
+              //:::::::::::::::::::::::::::::: DESCRIPTION :::::::::::::::::::::::
+              Wrap(
+                  children: <Widget>[
+                    Text(
+                      descriptionBegin,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 22,
+                        color: Colors.white,
+                        fontFamily: 'Quicksand',
+                      ),
+                    ),
+                  ]
+              ),
+            ],
+          ),
+        )
+      ]),
+    );
+  }
+
+  //********************************* TITLES ***********************************
+  _titles(){
+    return Container(
+      child: Padding(
+        padding: EdgeInsets.all(20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
 
-            //::::::::::::::::::::::::::::: TITLE ::::::::::::::::::::::::::::::
-            Center(
-              child: Text(
-                slide['nomeCapitulo'],
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                  color: Colors.black,
-                  fontFamily: 'Quicksand',
-                ),
-              ),
-            ),
-
-            //:::::::::::::::::::::::::::::: DESCRIPTION :::::::::::::::::::::::
+            //:::::::::::::::::: TITLE :::::::::::::::::::::::
             Text(
-              slide['descriptionHistory'],
+              historyBeginTitle,
               style: TextStyle(
-                fontWeight: FontWeight.normal,
-                fontSize: 16,
-                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+                color: Colors.white,
                 fontFamily: 'Quicksand',
               ),
             ),
@@ -160,62 +131,108 @@ class _PageHistoriaState extends State<PageHistoria> {
     );
   }
 
-  //******************************* SCROLL SLIDE **************************** */
-  scrollToSlide(inputSlide){
-    var qualSlide = indiceHistoria
-        .indexWhere((slide) => slide['nomeCapitulo'] == inputSlide['nomeCapitulo']);
-    var maxScrollValue = _scrollController.position.maxScrollExtent;
-    var divisao = (maxScrollValue / indiceHistoria.length) + 20;
-    var scrollToValue = qualSlide * divisao;
-    _scrollController.animateTo(
-        scrollToValue,
-        duration: Duration(milliseconds: 1),
-        curve: Curves.easeIn
+  //******************************* ALL TEXTS **********************************
+  _allTexts(){
+    return CustomScrollView(
+      slivers: <Widget>[
+        SliverAppBar(
+          expandedHeight: 100,
+          backgroundColor: Colors.transparent,
+          flexibleSpace: FlexibleSpaceBar(
+            collapseMode: CollapseMode.pin,
+            background: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+              ),
+              //:::::::::::::::::::::: TITLES ::::::::::::::::::::::::::
+              child: _titles(),
+            ),
+          ),
+        ),
+        //:::::::::::::::::::: TEXTO VERSICULOS ::::::::::::::::::::::::
+        _textoVersiculos(),
+      ],
     );
   }
 
+  //****************************** INFORMATION *********************************
+  _information(){
+    return //:::::::::::::::::::::::: CONTAINER TEXT ::::::::::::::::::::::::::::
+      Container(
+        height: MediaQuery.of(context).size.height / 1.6,
+        width: MediaQuery.of(context).size.width,
+        padding: EdgeInsets.only(
+          top:10,
+          left: 10,
+          right: 10,
+        ),
+        decoration: BoxDecoration(
+          //borderRadius: BorderRadius.all(Radius.circular(5)),
+          color: Colors.black12,
+        ),
+        child: _allTexts(),
+      );
+  }
+
   //******************************* GET TITLES ****************************** */
-  Widget getTitles(slide){
+  Widget getHistorias(String imageHistoria, String anoHistoria, String descriptionAnoHistoria){
     return InkWell(
       onTap: (){
-        scrollToSlide(slide);
+        selectedCard = true;
+        _setPrayer(descriptionAnoHistoria, anoHistoria);
       },
       child: Padding(
-        padding: EdgeInsets.only(
-          top: 10,
-        ),
+        padding: EdgeInsets.all(10),
 
         //============================ CONTAINER INDICE ========================
         child: Container(
+          height: MediaQuery.of(context).size.height / 8,
+          width: MediaQuery.of(context).size.width / 4,
+          padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(5)),
+            borderRadius: BorderRadius.all(Radius.circular(30)),
             border: Border.all(
                 color:  Colors.blue,
                 style: BorderStyle.solid,
                 width: 1.0
             ),
           ),
-          child: Row(
+          child: Column(
             children: [
 
               //::::::::::::::::::::::::::: MARK CONTAINER :::::::::::::::::::::
               Container(
-                height: 25,
-                width: 25,
-                color: slide['selecionado'] ? Colors.yellowAccent : Colors.blue,
+                height: MediaQuery.of(context).size.height / 8,
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30.0),
+                  image: DecorationImage(
+                      image: AssetImage(imageHistoria),
+                      fit: BoxFit.fill
+                  ),
+                ),
               ),
 
               //:::::::::::::::::::::::::: SPACE :::::::::::::::::::::::::::::::
-              SizedBox(width: 10,),
+              SizedBox(height: 10,),
 
               //::::::::::::::::::::::::: DESCRIPTION ::::::::::::::::::::::::::
               Text(
-                slide['nomeCapitulo'],
+                anoHistoria,
                 style: TextStyle(
-                  fontWeight: slide['selecionado'] ? FontWeight.bold : FontWeight.normal,
+                  fontWeight: FontWeight.bold,
                   fontSize: 17.0,
                   color: Colors.black,
                   fontFamily: 'Quicksand',
+                ),
+              ),
+
+              Container(
+                height: 5,
+                width: MediaQuery.of(context).size.width / 14,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(50)),
+                  color: Colors.black,
                 ),
               ),
             ],
@@ -225,29 +242,109 @@ class _PageHistoriaState extends State<PageHistoria> {
     );
   }
 
-  //***************************** INDICE LEFT SIDE ************************** */
-  _indiceLeftSide(){
+  //***************************** LIST OF HSTORY *******************************
+  _listOfHistory(ModelHistoria modelHistoria){
+    return Column(
+      children: [
+        Consumer<ModelHistorial>(builder: (context, historial, child) {
+          return Container(
+            height: MediaQuery.of(context).size.height / 3.90,
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topRight: Radius.circular(30),
+                topLeft: Radius.circular(30),
+              ),
+              color: ThemeData.dark().bottomAppBarColor,
+            ),
+            child: GridView.builder(
+              scrollDirection: Axis.horizontal,
+              padding: const EdgeInsets.all(10.0),
+              itemCount: historial.historias.length,
+              itemBuilder: (ctx, i){
+                return getHistorias(
+                  historial.historias[i].imageHistory,
+                  historial.historias[i].anoHistoria,
+                  historial.historias[i].descriptionAnoHistoria,
+                );
+              },
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 1,
+                childAspectRatio: 6 / 4,
+                crossAxisSpacing: 5,
+                mainAxisSpacing: 5,
+              ),
+            ),
+          );
+        }),
+      ],
+    );
+  }
+
+  //*************************** SHORT INFORMATION ******************************
+  _shortInformation(){
     return Container(
-      width: MediaQuery.of(context).size.width / 4,
-      child: ListView(
-        children: indiceHistoria.map((element){
-          return getTitles(element);
-        }).toList(),
+      padding: EdgeInsets.all(10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+
+          //::::::::::::::::::::::::::::: DURATION :::::::::::::::::::::::::::::::
+          _basicInformation("Anos de Existência", "28"),
+
+          //:::::::::::::::::::::::::::: CONTAINER DIVIDER :::::::::::::::::::::::
+          Container(
+            height: MediaQuery.of(context).size.height / 12,
+            width: 2,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(30)),
+              border: Border.all(
+                  color:  Colors.blue,
+                  style: BorderStyle.solid,
+                  width: 1.0
+              ),
+            ),
+          ),
+
+          //::::::::::::::::::::::::::::: DURATION :::::::::::::::::::::::::::::::
+          _basicInformation("Padroeiro", "Santo António \n     de Padua"),
+        ],
       ),
     );
   }
 
-  //************************** DESCRIPTION RIGTH SIDE ************************* */
-  _descriptionRigthSide(){
+  //******************************** BASIC INFORMATION *************************
+  _basicInformation(String title, String description){
     return Container(
-      width: (MediaQuery.of(context).size.width / 3) * 2,
-      child: ListView(
-        controller: _scrollController,
-        children: indiceHistoria.map((element){
-          return getCards(element);
-        }).toList(),
+      child: Column(
+        children: [
+
+          //:::::::::::::::::::::::::::: TITLE :::::::::::::::::::::::::::::::::
+          Text(
+            title,
+            style: TextStyle(
+                fontFamily: 'Quicksand',
+                fontWeight: FontWeight.normal,
+                fontSize: 16
+            ),
+          ),
+
+          //:::::::::::::::::::::::::::::: SPACE :::::::::::::::::::::::::::::::
+          SizedBox(height: 10,),
+
+          //:::::::::::::::::::::::::::::: DESCRIPTION :::::::::::::::::::::::::
+          Text(
+            description,
+            style: TextStyle(
+                fontFamily: 'Quicksand',
+                fontWeight: FontWeight.bold,
+                fontSize: 18
+            ),
+          ),
+        ],
       ),
     );
   }
+
 
 }

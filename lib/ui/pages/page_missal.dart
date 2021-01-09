@@ -6,6 +6,8 @@ import 'package:mambo_sap/ui/widget_complement/missal_tempos_liturgicos.dart';
 import 'package:mambo_sap/ui/widget_complement/partilha_gravar_audio.dart';
 import 'package:mambo_sap/ui/widget_complement/partilha_gravar_texto.dart';
 
+import 'page_home.dart';
+
 class PageMissal extends StatefulWidget {
 
 
@@ -46,20 +48,25 @@ class _PageMissalState extends State<PageMissal> with TickerProviderStateMixin{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: IndexedStack(
-        children: <Widget>[
+      body: Stack(
+        children: [
 
-          //----------------------- PAGE LEITURAS ------------------------------
-          PageMissalLeituras(),
+          IndexedStack(
+            children: <Widget>[
 
-          //------------------- PAGE PARTILHA DE PALAVRA -----------------------
-          MenuPartilha(),
+              //----------------------- PAGE LEITURAS ------------------------------
+              PageMissalLeituras(),
 
-          //------------------- PAGE TEMPOS LITURGICOS -------------------------
-          MissalTemposLiturgicos()
+              //------------------- PAGE PARTILHA DE PALAVRA -----------------------
+              MenuPartilha(),
 
+              //------------------- PAGE TEMPOS LITURGICOS -------------------------
+              MissalTemposLiturgicos()
+
+            ],
+            index: selectedIndex,
+          ),
         ],
-        index: selectedIndex,
       ),
 
       //::::::::::::::::::::::::: BOTTOM NAV CUSTOM ::::::::::::::::::::::::::::

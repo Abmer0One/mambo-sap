@@ -26,19 +26,42 @@ class _MenuPartilhaState extends State<MenuPartilha> {
     return Stack(
       children: [
 
+      //::::::::::::::::::::::: IMAGE TOP BACKGROUND :::::::::::::::::::::::::
+      if(recordAudio)
+        PartilhaGravarAudio()
+      else if(recordTexto)
+        PartilhaGravarTexto()
+      else
+        Container(
+          height: MediaQuery.of(context).size.height / 1.5,
+          width: MediaQuery.of(context).size.width,
+          decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(0),
+          color: Colors.black12,
+            image: DecorationImage(
+            image: AssetImage("assets/image/menu/partilha_da_palavra.jpg"),
+            fit: BoxFit.fill
+            ),
+          ),
+        ),
+
+      /*
+
         //::::::::::::::::::::::: IMAGE TOP BACKGROUND :::::::::::::::::::::::::
-        /*recordAudio ? PartilhaGravarAudio() : Container(
+        recordAudio ? PartilhaGravarAudio() : Container(
           height: MediaQuery.of(context).size.height / 1.5,
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(0),
             color: Colors.black12,
             image: DecorationImage(
-                image: AssetImage("assets/image/inicial/descobre.jpg"),
-                fit: BoxFit.fill
+                image: AssetImage("assets/image/inicial/partilha_da_palavra.jpg"),
+                fit: BoxFit.fill,
             ),
           ),
-        ), */recordTexto ? PartilhaGravarTexto() : Container(
+        ),
+
+        recordTexto ? PartilhaGravarTexto() : Container(
           height: MediaQuery.of(context).size.height / 1.5,
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
@@ -50,6 +73,7 @@ class _MenuPartilhaState extends State<MenuPartilha> {
             ),
           ),
         ),
+*/
 
         //::::::::::::::::::::::: CONTAINER BOTTOM :::::::::::::::::::::::::::::
         Container(
@@ -83,32 +107,9 @@ class _MenuPartilhaState extends State<MenuPartilha> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
 
-                  //
-                  InkWell(
-                    onTap: (){
-                      setState(() {
-                        _alertShoiceAudio(context);
-                      });
-                    },
-                    child: _cardOption(
-                        "Audio",
-                        Icons.keyboard_voice_rounded
-                    ),
-                  ),
+                  _cardOption( 1, "Audio", Icons.keyboard_voice_rounded),
 
-                  InkWell(
-                    onTap: (){
-                      setState(() {
-                        _alertShoiceTexto(context);
-                      });
-                    },
-                    child: _cardOption(
-                        "Texto",
-                        Icons.note_add
-                    ),
-                  ),
-
-
+                  _cardOption( 2, "Texto", Icons.note_add),
 
                 ],
               ),
@@ -130,6 +131,7 @@ class _MenuPartilhaState extends State<MenuPartilha> {
           "O Seu Momento de Partilha",
           style: TextStyle(
               fontFamily: 'Quicksand',
+              color: Colors.black,
               fontWeight: FontWeight.bold,
               fontSize: 24
           ),
@@ -139,6 +141,7 @@ class _MenuPartilhaState extends State<MenuPartilha> {
           "Partilhe o conhecimento e enriqueça a sua fé, escolha a forma de partilha...",
           style: TextStyle(
               fontFamily: 'Quicksand',
+              color: Colors.black,
               fontWeight: FontWeight.normal,
               fontSize: 18
           ),
@@ -148,7 +151,7 @@ class _MenuPartilhaState extends State<MenuPartilha> {
   }
 
   //************************* CARD OPTION **************************************
-  _cardOption(String title, IconData iconData){
+  _cardOption(int  idCard, String title, IconData iconData){
     return Container(
       height: MediaQuery.of(context).size.height / 4,
       width: MediaQuery.of(context).size.width / 3,
@@ -156,25 +159,51 @@ class _MenuPartilhaState extends State<MenuPartilha> {
         borderRadius: BorderRadius.circular(30),
         color: Colors.black12,
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
+      child: InkWell(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
 
-          Icon(
-            iconData,
-            size: MediaQuery.of(context).size.height / 6,
-          ),
-
-          Text(
-            title,
-            style: TextStyle(
-                fontFamily: 'Quicksand',
-                fontWeight: FontWeight.bold,
-                fontSize: 16
+            Icon(
+              iconData,
+              color: Colors.black,
+              size: MediaQuery.of(context).size.height / 6,
             ),
-          )
-        ],
+
+            Text(
+              title,
+              style: TextStyle(
+                  fontFamily: 'Quicksand',
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16
+              ),
+            )
+          ],
+        ),
+        onTap: (){
+          setState(() {
+            var grade = idCard;
+            switch (grade) {
+
+              case 1: {
+                _alertShoiceAudio(context);
+              }
+              break;
+
+              case 2: {
+                _alertShoiceTexto(context);
+              }
+              break;
+
+              default: {
+                print("INVALID CHOICE");
+              }
+              break;
+            }
+          });
+        },
       ),
     );
   }
@@ -205,8 +234,9 @@ class _MenuPartilhaState extends State<MenuPartilha> {
                   InkWell(
                     onTap: (){
                       setState(() {
-                        recordTexto = false;
+
                         recordAudio = true;
+                        recordTexto = false;
                         Navigator.pop(context);
                       });
                     },
@@ -218,8 +248,9 @@ class _MenuPartilhaState extends State<MenuPartilha> {
                   InkWell(
                     onTap: (){
                       setState(() {
-                        recordTexto = false;
+
                         recordAudio = true;
+                        recordTexto = false;
                         Navigator.pop(context);
                       });
                     },
@@ -242,6 +273,7 @@ class _MenuPartilhaState extends State<MenuPartilha> {
 
           Icon(
             iconData,
+            color: Colors.black,
             size: MediaQuery.of(context).size.height / 20,
           ),
 
@@ -251,6 +283,7 @@ class _MenuPartilhaState extends State<MenuPartilha> {
             title,
             style: TextStyle(
                 fontFamily: 'Quicksand',
+                color: Colors.black,
                 fontWeight: FontWeight.bold,
                 fontSize: 20
             ),
@@ -283,8 +316,9 @@ class _MenuPartilhaState extends State<MenuPartilha> {
                   InkWell(
                     onTap: (){
                       setState(() {
-                        recordAudio = false;
+
                         recordTexto = true;
+                        recordAudio = false;
                         Navigator.pop(context);
                       });
                     },
@@ -295,8 +329,9 @@ class _MenuPartilhaState extends State<MenuPartilha> {
                   InkWell(
                     onTap: (){
                       setState(() {
-                        recordAudio = false;
+
                         recordTexto = true;
+                        recordAudio = false;
                         Navigator.pop(context);
                       });
                     },

@@ -28,6 +28,7 @@ dependencies:
   intl: ^0.16.1
   table_calendar: ^2.0.1
   advance_pdf_viewer: ^1.2.0
+  dio: ^3.0.3
 
 
   # The following adds the Cupertino Icons font to your application.

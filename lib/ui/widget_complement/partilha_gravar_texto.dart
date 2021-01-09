@@ -34,13 +34,13 @@ class _PartilhaGravarTextoState extends State<PartilhaGravarTexto> {
                 bottom: 10
             ),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: Colors.black87,
               borderRadius: BorderRadius.circular(20),
             ),
             child: TextFormField(
               decoration: InputDecoration(
                 border: InputBorder.none,
-                hintText: 'Digite o titulo'
+                hintText: 'Digite o titulo',
               ),
             ),
           ),
@@ -101,6 +101,7 @@ class _PartilhaGravarTextoState extends State<PartilhaGravarTexto> {
                       "Cancelar",
                       style: TextStyle(
                           fontFamily: 'Quicksand',
+                          color: Colors.black,
                           fontWeight: FontWeight.bold,
                           fontSize: 24
                       ),

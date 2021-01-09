@@ -7,7 +7,23 @@ class ModelCoordenacao with ChangeNotifier {
       imageCoord: "assets/image/inicial/padroeiro.png",
       nameCoord: "António Dala",
       cargoCoord: "Coordenador",
-      funcaoCoord: "Gerir o grupo e o resto...",
+      funcaoCoord: "O Coordenador como responsável máximo tem o dever de garantir o "
+          "bom ambiente no seio do grupo e manter o normal funcionamento das actividades"
+          "do grupo, assim como a sua manutenção, então deve: \n\n"
+          "Velar pelo respeito mútuo, a boa relação entre os membros.\n"
+          "Velar pela unidade do grupo e a superação continua das dificuldades encontradas.\n"
+          "Estar situado sobre todas as reuniões marcadas dentro e fora da capela.\n"
+          "Marcar reuniões com os coordenadores no sentido de acompanhar, avaliar os trabalhos"
+          "e identificar as suas dificuldades e encontrar as soluções.\n"
+          "Dar abertura e dirigir as reuniões trimestrais.\n"
+          "Assinar os documentos de interesse do grupo.\n"
+          "Nomear novos coordenadores e destituir.\n"
+          "Apoiar todas as comissões de trabalho.\n"
+          "Supervisionar as actividades do grupo e os prazos de elaboração de relatórios"
+          "e prestação de contas.\n"
+          "Representar o grupo nas reuniões do Conselho do Centro, CJC e Liturgia. "
+          "Transmitir essas informações ao secretário e este por sua vez encarregar-se-á em "
+          "transmitir e sensibiliza-los.",
       contactoCoord: "923777777",
     ),
     ModelCoordenador(

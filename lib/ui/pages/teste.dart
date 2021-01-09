@@ -1,111 +1,133 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'dart:async';
 
 
-
-class TimerApp extends StatefulWidget {
+class MyHomePage extends StatefulWidget {
   @override
-  _TimerAppState createState() => _TimerAppState();
+  _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _TimerAppState extends State<TimerApp> {
-  static const duration = const Duration(seconds: 1);
+class _MyHomePageState extends State<MyHomePage> {
+  var _nome = "Nome do Usuário";
+  var _email = "Email do Usuário";
+  var _count = 1;
+  TextEditingController _job = TextEditingController();
+  Dio _dio;
+  var _result = "";
 
-  int secondsPassed = 0;
-  bool isActive = false;
+  @override
+  void initState() {
+    super.initState();
 
-  Timer timer;
+    BaseOptions options = new BaseOptions(
+      baseUrl: "https://www.abibliadigital.com.br/api/books",
+      connectTimeout: 5000,
+    );
 
-  void handleTick() {
-    if (isActive) {
-      setState(() {
-        secondsPassed = secondsPassed + 1;
-      });
-    }
+    _dio = new Dio(options);
   }
 
   @override
   Widget build(BuildContext context) {
-    if (timer == null) {
-      timer = Timer.periodic(duration, (Timer t) {
-        handleTick();
-      });
-    }
-    int seconds = secondsPassed % 60;
-    int minutes = secondsPassed ~/ 60;
-    int hours = secondsPassed ~/ (60 * 60);
-
-    return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: Scaffold(
-          backgroundColor: Colors.teal[50],
-          body: Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    _labelTextTimer(
-                        'HRS', hours.toString().padLeft(2, '0')),
-                    _labelTextTimer(
-                        'MIN',
-                        minutes.toString().padLeft(2, '0')),
-                    _labelTextTimer(
-                        'SEC',
-                        seconds.toString().padLeft(2, '0')),
-                  ],
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Exemplo Dio"),
+      ),
+      body: Center(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.all(10),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                _nome,
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Text(
+                _email,
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              SizedBox(
+                width: 150,
+                child: TextField(
+                  textAlign: TextAlign.center,
+                  decoration: InputDecoration(
+                    hintText: 'Digite a profissão',
+                  ),
+                  controller: _job,
                 ),
-                SizedBox(height: 20),
-                Container(
-                  width: 100,
-                  height: 100,
-                  margin: EdgeInsets.only(top: 10),
-                  child: RaisedButton(
-                    color: Colors.pink[200],
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50)),
-                    child: Text(isActive ? 'Stop' : 'Play'),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+
+              //************************** buttons *****************************
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  MaterialButton(
+                    color: Colors.orange,
+                    child: Text("Obter Perfil!"),
                     onPressed: () {
-                      setState(() {
-                        isActive = !isActive;
-                      });
+                      getProfile();
                     },
                   ),
-                )
-              ],
-            ),
-          ),
-        ));
-  }
+                  MaterialButton(
+                    color: Colors.orange,
+                    child: Text("Enviar!"),
+                    onPressed: () {
+                      submitUser();
+                    },
+                  ),
+                ],
+              ),
 
-  //*************************** CARD TEXT TIMER ********************************
-  _labelTextTimer(String description, String value){
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 5),
-      padding: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: Colors.teal,
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Text(
-            '$value',
-            style: TextStyle(
-                color: Colors.white, fontSize: 55, fontWeight: FontWeight.bold),
+
+              SizedBox(
+                height: 10,
+              ),
+              Text("Resposta: $_result",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.red
+                ),)
+            ],
           ),
-          Text(
-            '$description',
-            style: TextStyle(
-              color: Colors.white70,
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
+
+  void getProfile() async {
+    Response response = await _dio.get("/:abbrev$_count");
+    var profile = response.data["abbrev"];
+    setState(() {
+      _nome = profile['author'] + " " + profile['group'];
+      _email = profile['name'];
+    });
+  }
+
+  void submitUser() async {
+    Response response =
+    await _dio.post("/users", data: {"name": _nome, "job": _job.text});
+    print(response.data.toString());
+    setState(() {
+      _nome = "Nome do Usuário";
+      _email = "Email do Usuário";
+      _job.text = "";
+      _result = response.data.toString();
+      _count++;
+    });
+  }
 }
-
-

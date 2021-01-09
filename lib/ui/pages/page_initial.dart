@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:mambo_sap/ui/pages/page_home.dart';
 
 class PageInitial extends StatefulWidget {
   @override
@@ -236,7 +237,7 @@ class _PageInitialState extends State<PageInitial> {
           Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (BuildContext context) => null,
+                builder: (BuildContext context) => PageHome(),
               )
           );
         },

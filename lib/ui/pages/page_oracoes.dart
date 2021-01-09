@@ -15,8 +15,6 @@ class _PageOracaoState extends State<PageOracao> {
   String prayerBeginTitle = "Esteje ligado.";
 
 
-
-
   //******************************* WIDGET ROOT ********************************
   @override
   Widget build(BuildContext context) {
@@ -25,7 +23,7 @@ class _PageOracaoState extends State<PageOracao> {
     );
   }
 
-  //******************************* SET PHOTO ******************************* */
+  //******************************* SET PRAYER ****************************** */
   _setPrayer(String prayer, String title){
     setState((){
       prayerBegin = prayer;
@@ -113,6 +111,7 @@ class _PageOracaoState extends State<PageOracao> {
   _allPage(){
     final oracaoModel = Provider.of<ModelOrar>(context, listen: false);
     return Container(
+
       /*decoration: BoxDecoration(
         image: DecorationImage(
             image: AssetImage(
@@ -121,6 +120,7 @@ class _PageOracaoState extends State<PageOracao> {
             fit: BoxFit.cover
         ),
       ),*/
+
       color: Colors.black45,
       padding: EdgeInsets.only(
         top: 25
